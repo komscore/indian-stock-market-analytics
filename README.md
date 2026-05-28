@@ -19,37 +19,41 @@ indicators, and visualizes insights via Power BI.
 
 ---
 
-## Project Structure
-tock-analytics/
+### Project Structure
+
+```
+stock-analytics/
 │
 ├── notebooks/
-│   ├── fetch_data.py          # ETL — pulls 1 year of NSE data
-│   ├── clean_data.py          # IQR outlier removal, forward-fill
-│   ├── setup_database.py      # Creates star-schema MySQL tables
+│   ├── fetch_data.py           # ETL — pulls 1 year of NSE data
+│   ├── clean_data.py           # IQR outlier removal, forward-fill
+│   ├── setup_database.py       # Creates star-schema MySQL tables
 │   ├── technical_indicators.py # RSI, MACD, MA, Bollinger Bands
-│   └── export_for_powerbi.py  # Final export for dashboard
+│   └── export_for_powerbi.py   # Final export for dashboard
 │
-├── cleaned_data/              # Auto-generated after running pipeline
-├── indicators/                # Auto-generated indicator outputs
-├── data/                      # Raw data (auto-generated)
+├── cleaned_data/               # Auto-generated after running pipeline
+├── indicators/                 # Auto-generated indicator outputs
+├── data/                       # Raw data (auto-generated)
 └── README.md
----
+```
 
 ## Pipeline Architecture
+
+```
 yfinance API
-↓
-fetch_data.py        → 18 NSE stocks, 1 year, ~4500 rows
-↓
-clean_data.py        → IQR outlier removal, forward-fill imputation
-↓
-setup_database.py    → Star-schema MySQL (dim_date, dim_company,
-dim_sector, fact_stock_prices)
-↓
+     ↓
+fetch_data.py         → 18 NSE stocks, 1 year, ~4500 rows
+     ↓
+clean_data.py         → IQR outlier removal, forward-fill imputation
+     ↓
+setup_database.py     → Star-schema MySQL (dim_date, dim_company,
+                         dim_sector, fact_stock_prices)
+     ↓
 technical_indicators.py → RSI, MACD, MA20/50/200, Bollinger Bands,
-Buy/Sell/Hold signals
-↓
+                           Buy/Sell/Hold signals
+     ↓
 export_for_powerbi.py → 29-column CSV for Power BI dashboard
----
+```
 
 ## Key Results
 
